@@ -1,0 +1,54 @@
+package zz.chat.gpt;
+
+import java.util.Scanner;
+
+public class Run {
+	public static void main(String[] args) {
+		/*
+        // 초기 연료량이 충분한 차량 생성
+        Car car1 = new Car("Toyota", 50.0);
+        System.out.println("Car 1:");
+        car1.displayFuel();
+        car1.drive(200); // 200km 주행
+        car1.displayFuel();
+
+        System.out.println();
+
+        // 초기 연료량이 부족한 차량 생성
+        Car car2 = new Car("Honda", 5.0);
+        System.out.println("Car 2:");
+        car2.displayFuel();
+        car2.drive(100); // 100km 주행 시도
+        car2.displayFuel();
+        */
+		
+		/*
+	 	문자열을 입력 받아 문자 하나하나를 배열에 넣고 검색할 문자가 문자열에 몇 개 들어가 있는지
+		개수와 몇 번째 인덱스에 위치하는지 인덱스를 출력하세요.
+		
+		ex.
+		문자열 : application
+		문자 : i
+		application에 i가 존재하는 위치(인덱스) : 4 8 
+		i 개수 : 2
+	 */
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("문자열 입력 : ");
+		String str = sc.next();
+		System.out.print("찾을 문자 입력 : ");
+		char ch = sc.next().charAt(0);
+		int count = 0;
+		
+		for(int i=0;i<str.length();i++) {
+			char arr[] = new char[str.length()];
+			if(arr[i] == ch) {
+				System.out.println(i+"번째");
+				count++;
+			}
+			System.out.println( count +"개");
+			
+		}
+		
+    }
+}

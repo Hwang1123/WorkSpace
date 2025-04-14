@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        #answer{
+            border: 1px solid black;
+            width: 168.44;
+            height: 19.76;
+            padding: 1px 2px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="a">
+    <select id="math">
+        <option value="1">+</option>
+        <option value="2">-</option>
+        <option value="3">*</option>
+        <option value="4">/</option>
+        <option value="5">%</option>
+    </select>
+    <input type="text" id="b">
+    <input type="button" value="=" onclick="test()">
+    <input id="answer" readonly></input>
+
+    <script>
+        function test(){
+            const a = Number(document.getElementById('a').value);
+            const b = Number(document.getElementById('b').value);
+            const math = parseInt(document.getElementById('math').value);
+            const answerDiv = document.getElementById('answer');
+            let answer = 0;
+
+            switch(math){
+                case 1:
+                    answer = a + b;
+                    break;
+                case 2:
+                    answer = a - b;
+                    break;
+                case 3:
+                    answer = a * b;
+                    break;
+                case 4:
+                    answer = b !== 0 ? a / b : "연산불가";
+                    break;
+                case 5:
+                    answer = b !== 0 ? a % b : "연산불가";
+                    break;
+                default:
+                    answer = "잘못된 연산자 선택!";
+            }
+
+            answerDiv.value = answer;
+
+            if (answer === "연산불가" || answer === "잘못된 연산자 선택!") {
+                    answerDiv.style.backgroundColor = "red";
+                    answerDiv.style.color = "white"; // 가독성을 위해 글자색 흰색으로 설정
+             } else {
+                    answerDiv.style.backgroundColor = "transparent"; // 정상 결과는 배경색 초기화
+                    answerDiv.style.color = "black";
+            }
+            
+        }
+    </script>
+</body>
+</html>

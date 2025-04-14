@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        fieldset{
+            border: 1px solid black;
+        }
+        div{
+            border: 1px solid black;
+            width: 100%;
+            height: 250px;
+        }
+        input{
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <fieldset><legend>구매 정보</legend>
+    <ul>
+        <li>구매자 : <input type="text" id="buyer" placeholder="구매자의 이름을 입력하세요."></li>
+        <li>상품명 : <input type="text" id="product" placeholder="구매 상품 명을 입력하세요." ></li>
+        <li>가격 : <input type="number" id="price" placeholder="구매 가격을 입력하세요." ></li>
+        <li>구매수량 : <input type="text" id="quantity" placeholder="최소10," ></li>
+        <li>납품등급 : <input type="range" id="grade" value="1" min="1" max="9" step="2"></li>
+        <li>기타사항 : <textarea id="remarks"></textarea></li>
+    </ul>
+    </fieldset>
+    <br>
+    <button onclick="print()">입력 값 출력하기</button>
+    <br><br>
+    <div id="display"></div>
+    <script>
+        function print() {
+            // 입력된 값 가져오기
+            const buyer = document.getElementById("buyer").value;
+            const product = document.getElementById("product").value;
+            const price = document.getElementById("price").value;
+            const quantity = document.getElementById("quantity").value;
+            const grade = document.getElementById("grade").value;
+            const remarks = document.getElementById("remarks").value;
+
+            // div에 출력할 내용 구성
+            const display = document.getElementById("display");
+            display.innerHTML = `
+                <p>구매자: ${buyer}님</p>
+                <p>상품명: ${product}</p>
+                <p>가격: ${price}만원</p>
+                <p>구매수량: ${quantity}개</p>
+                <p>납품등급: ${grade}등급</p>
+                <p>기타사항: ${remarks}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

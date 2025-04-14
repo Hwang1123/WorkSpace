@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영역관련태그</title>
+
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        블럭요소 : 한줄 단위로 영역을 차지함.
+                  줄바꿈이 적용되어 이미 존재하는 태그의 다음줄에 다음영역이 잡힌다
+                  (p, pre, "div", h....)
+        인라인요소 : content(내용) 영역에 해당하는 부분만 영역을 차지하는 요소
+                    줄바꿈이 적요되지 않다 다음 영역이 바로 옆으로 잡힘.
+                    (b, mark, s, img, "span"...)
+    -->
+    <h1>영역관련태그</h1>
+    <h2>div태그와 span태그의 차이점1 : 줄바꿈처리</h2>
+    
+    <div style="background: red;">첫번째 영역</div>
+    <div style="background: orange;">두번째 영역</div>
+    <div style="background: yellow;">세번째 영역</div>
+
+    <h3> span 태그</h3>
+    <p>span 태그는 인라인 요소로 content영역만 차지(줄바꿈 발생x)</p>
+    <span style="background: red;">첫번째 영역</span>
+    <span style="background: orange;">두번째 영역</span>
+    <span style="background: yellow;">세번째 영역</span>
+
+    <h2> div태그와 span태그의 차이점2 : 영역지정방식</h2>
+    <h3>div태그 : 사각형 박스로 영역을 지정함</h3>
+    <div style="height: auto;">
+        김성철 소속사의 스토리제이컴퍼니 관계자는 3일 오후 MK스포츠에 
+        “(현재 김성철 관련)이슈에 대해 잘못한 부분을 인정하고 반성하고 있다”고 밝혔다.
+        이어 “다만 커뮤니티에 언급된 것처럼 해당 계정이 논란이 있는 채널인지는 전혀 몰랐으며 
+        이후 바로 인지하고 내용을 수정했으나 이미 빠른 속도로 퍼진 상황이었다. 
+        인지 후에는 곧바로 (투표를) 취소했다”고 설명했다.
+    </div>
+
+    <h3>span태그 : 문장단위로 영역을 지정함</h3>
+    <span style="height: auto;">
+        김성철 소속사의 스토리제이컴퍼니 관계자는 3일 오후 MK스포츠에 
+        “(현재 김성철 관련)이슈에 대해 잘못한 부분을 인정하고 반성하고 있다”고 밝혔다.
+        이어 “다만 커뮤니티에 언급된 것처럼 해당 계정이 논란이 있는 채널인지는 전혀 몰랐으며 
+        이후 바로 인지하고 내용을 수정했으나 이미 빠른 속도로 퍼진 상황이었다. 
+        인지 후에는 곧바로 (투표를) 취소했다”고 설명했다.
+    </span>
+
+    <hr>
+
+    <h1>iframe</h1>
+    <p>웹문서 안에 다른 웹페이지를 추가하는 태그(인라인요소)</p>
+    <iframe src="./04_이미지 및 멀티미디어태그.html" width="1000" height="700"></iframe>
+    <iframe width="772" height="434" src="https://www.youtube.com/embed/I5BZlfNnISo" title="손흥민이 구한 토트넘, 자책골 유도+리그 7호 도움 기록 #SPOTIME" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    
+</body>
+</html>

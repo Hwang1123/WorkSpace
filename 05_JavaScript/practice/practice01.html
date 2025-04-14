@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <style>
+    #hobby{
+        border: 1px solid black;
+    }
+
+    #category{
+        border: 1px solid red;
+        height: 150px;
+    }
+   </style>
+</head>
+<body>
+    <h1>practice1</h1>
+    <fieldset id="hobby"><legend>취미</legend>
+        <input type="checkbox" name="전체선택" onclick="selectAll(this)">
+        <label for="전체선택">전체선택</label>
+
+        <input type="checkbox" name="hobby" value="종합">
+        <label for="종합">종합</label>
+
+        <input type="checkbox" name="hobby" value="시/에세이">
+        <label for="시/에세이">시/에세이</label>
+
+        <input type="checkbox" name="hobby" value="경제/경영">
+        <label for="경제/경영">경제/경영</label>
+
+        <input type="checkbox" name="hobby" value="자기계발">
+        <label for="자기계발">자기계발</label>
+
+        <input type="checkbox" name="hobby" value="아동">
+        <label for="아동">아동</label>
+        
+        <br>
+
+        <input type="checkbox" name="hobby" value="여행">
+        <label for="여행">여행</label>
+
+        <input type="checkbox" name="hobby" value="과학">
+        <label for="과학">과학</label>
+
+        <input type="checkbox" name="hobby" value="역사/문화">
+        <label for="역사/문화">역사/문화</label>
+
+        <input type="checkbox" name="hobby" value="외국어">
+        <label for="외국어">외국어</label>
+
+        <input type="checkbox" name="hobby" value="컴퓨터">
+        <label for="컴퓨터">컴퓨터</label>
+
+        <input type="checkbox" name="hobby" value="만화">
+        <label for="만화">만화</label>
+
+
+    </fieldset>
+
+    <br><br><br>
+
+    <button onclick="select()">카테고리 선택</button>
+    <div id="category"></div>
+
+    <script>
+        function select(){
+            const query = 'input[name ="hobby"]:checked';
+            const selectedEls = 
+            document.querySelectorAll(query);
+            
+            let category = '';
+            selectedEls.forEach((el) => {
+            category += el.value + '/';
+            });
+  
+            // 출력
+            document.getElementById('category').innerText
+            = category;
+
+        }
+
+        function selectAll(selectAll){
+            const checkboxes 
+            = document.getElementsByName('hobby');
+  
+            checkboxes.forEach((checkbox) => {
+            checkbox.checked = selectAll.checked;
+            })
+        }
+    </script>
+</body>
+</html>

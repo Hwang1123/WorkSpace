@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div, form, input{
+            box-sizing: border-box;
+            border: 2px solid red;
+        }
+        #search{
+            height: 150px;
+            position: relative;
+        }
+        #search>form{
+            margin: auto;
+            width: 80%;
+            height: 30px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        /* 사방으로 가라고 해서 결국 중앙정렬 */
+        }
+        #search>form input{
+            height: 100%;
+            float: left;
+        }
+        #search>form input[type="text"]{
+            width: calc(100% - 80px);
+        }
+        #search>form input[type="submit"]{
+            width: 80px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="search">
+        <form action="">
+            <input type="text">
+            <input type="submit" value="검색">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+package zz.chat.gpt;
+
+public class Run {
+	public static void main(String[] args) {
+        // 초기 연료량이 충분한 차량 생성
+        Car car1 = new Car("Toyota", 50.0);
+        System.out.println("Car 1:");
+        car1.displayFuel();
+        car1.drive(200); // 200km 주행
+        car1.displayFuel();
+
+        System.out.println();
+
+        // 초기 연료량이 부족한 차량 생성
+        Car car2 = new Car("Honda", 5.0);
+        System.out.println("Car 2:");
+        car2.displayFuel();
+        car2.drive(100); // 100km 주행 시도
+        car2.displayFuel();
+    }
+}
