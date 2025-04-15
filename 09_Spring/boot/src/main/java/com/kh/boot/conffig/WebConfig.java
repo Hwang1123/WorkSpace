@@ -1,4 +1,4 @@
-package com.kh.boot.config;
+package com.kh.boot.conffig;
 
 
 import com.kh.boot.interceptor.LogginInterceptor;

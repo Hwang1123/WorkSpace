@@ -1,9 +1,11 @@
 package com.kh.boot.controller;
 
 import com.kh.boot.domain.vo.Member;
+import com.kh.boot.service.GoogleAPiService;
 import com.kh.boot.service.MemberService;
 import com.kh.boot.service.MemberServiceImpl;
 import jakarta.servlet.http.HttpSession;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -47,11 +49,13 @@ public class MemberController {
 
     private final MemberService memberService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final GoogleAPiService googleAPiService;
 
     @Autowired
-    public MemberController(MemberService memberService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public MemberController(MemberService memberService, BCryptPasswordEncoder bCryptPasswordEncoder, GoogleAPiService googleAPiService) {
         this.memberService = memberService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.googleAPiService = googleAPiService;
     }
 
     /*
@@ -166,6 +170,25 @@ public class MemberController {
         return mv;
     }
 
+    @GetMapping("login.go")
+    public ModelAndView loginGoogle(String code, ModelAndView mv, HttpSession session) {
+        System.out.println("code : " + code);
+        Map<String, String> userInfo = googleAPiService.requestGoogleUserInfo(code);
+        String memberId = userInfo.get("email");
+
+        Member loginMember = memberService.loginMember(memberId);
+
+        if(loginMember == null){
+            session.setAttribute("alertMsg", "회원가입 후 이용이 가능합니다.");
+            mv.setViewName("redirect:/enrollForm.me?memberId=" + memberId);
+        } else {
+            session.setAttribute("loginUser", loginMember);
+            session.setAttribute("access_token", userInfo.get("access_token"));
+            mv.setViewName("redirect:/");
+        }
+        return mv;
+    }
+
     @GetMapping("logout.me")
     public String logout(HttpSession session) {
         session.setAttribute("alertMsg", "로그아웃 완료");
@@ -194,7 +217,7 @@ public class MemberController {
 
         int result = memberService.insertMember(member);
         if (result > 0){
-            session.setAttribute("alertMsg", "성공적으로 회원가입을 완료하였습니다.");
+           session.setAttribute("alertMsg", "성공적으로 회원가입을 완료하였습니다.");
             return "redirect:/";
         } else {
             model.addAttribute("errorMsg", "회원가입 실패");
@@ -203,5 +226,5 @@ public class MemberController {
     }
 
     @GetMapping("myPage.me")
-    public String myPage(){return "member/myPage";}
+    public String myPage() {return "member/myPage";}
 }

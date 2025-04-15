@@ -1,6 +1,5 @@
 package com.kh.boot.mappers;
 
-import com.kh.boot.domain.vo.Attachment;
 import com.kh.boot.domain.vo.Board;
 import com.kh.boot.domain.vo.Reply;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,7 +15,6 @@ public interface BoardMapper {
     ArrayList<Board> selectBoardList(RowBounds rowBounds);
     //게시글 추가
     int insertBoard(Board board);
-
     int increaseCount(@Param("bno") int boardNo);
     Board selectBoard(@Param("bno") int boardNo);
     //댓글추가
@@ -26,12 +24,4 @@ public interface BoardMapper {
     ArrayList<Board> getBoardTopN(RowBounds rowBounds,@Param("order") String order);
     //게시글 수정
     int updateBoard(Board board);
-
-    int selectPhotoBoardCount();
-
-    ArrayList<Board> selectPhotoBoardList(RowBounds rowBounds);
-
-    int insertPhotoBoard(Board board);
-
-    ArrayList<Attachment> selectAttachmentList(int boardNo);
 }

@@ -1,6 +1,5 @@
 package com.kh.boot.controller;
 
-import com.kh.boot.domain.vo.Attachment;
 import com.kh.boot.domain.vo.Board;
 import com.kh.boot.domain.vo.PageInfo;
 import com.kh.boot.service.BoardService;
@@ -106,98 +105,6 @@ public class BoardController {
         if(result > 0){
             session.setAttribute("alertMsg", "게시글 수정 성공");
             return "redirect:/detail.bo?bno=" + b.getBoardNo();
-        } else {
-            model.addAttribute("errorMsg", "게시글 수정 실패");
-            return "common/errorPage";
-        }
-    }
-
-    @GetMapping("list.pb")
-    public String selectPhotoBoardList(@RequestParam(defaultValue = "1") int cpage, Model model) {
-        int boardCount = boardService.selectPhotoBoardBoardCount();
-
-        PageInfo pi = new PageInfo(boardCount, cpage, 10, 5);
-        ArrayList<Board> list = boardService.selectPhotoBoardList(pi);
-
-        model.addAttribute("list", list);
-        model.addAttribute("pi", pi);
-        return "board/photoboardListView";
-    }
-
-    @GetMapping("enrollForm.pb")
-    public String pbenrollForm() {return "board/photoboardEnrollForm";}
-
-
-    @PostMapping("insert.pb")
-    public String insertPhotoBoard(@ModelAttribute Board board, MultipartFile upfile, HttpSession session, Model model) {
-        System.out.println(board);
-        System.out.println(upfile);
-
-        if(!upfile.getOriginalFilename().equals("")){
-            String changeName = Template.saveFile(upfile, session, "/resources/uploadfile/");
-
-            board.setChangeName("/resources/uploadfile/" + changeName);
-            board.setOriginName(upfile.getOriginalFilename());
-
-            ArrayList<Attachment> list = new ArrayList<>(); //첨부파일목록
-            Attachment at = new Attachment();
-
-            at.setFileLevel(upfile.getOriginalFilename().equals("file1") ? 1 : 2);
-            list.add(at);
-        }
-
-        int result = boardService.insertPhotoBoard(board);
-
-        if(result > 0){
-            session.setAttribute("alertMsg", "게시글 작성 성공");
-            return "redirect:/list.pb";
-        } else {
-            model.addAttribute("errorMsg", "게시글 작성 실패");
-            return "common/errorPage";
-        }
-
-
-    }
-
-    @GetMapping("detail.pb")
-    public String selectPhotoBoardDetail(int bno, Model model) {
-            int result = boardService.increaseCount(bno);
-
-            if(result > 0){
-                Board b = boardService.selectBoard(bno);
-                model.addAttribute("b", b);
-
-                return "board/PhotoBoardDetailView";
-            } else {
-                model.addAttribute("errorMsg", "게시글 조회 실패");
-                return "common/errorPage";
-            }
-    }
-
-    @GetMapping("updateForm.pb")
-    public String updatePhotoBoard(@RequestParam(value = "bno") int boardNo, Model model) {
-
-        model.addAttribute("b", boardService.selectBoard(boardNo));
-        return "board/photoboardUpdateForm";
-    }
-
-    @PostMapping("update.pb")
-    public String photoupdateBoard(@ModelAttribute Board b, MultipartFile reupfile, HttpSession session, Model model) {
-        if (!reupfile.getOriginalFilename().equals("")) {
-            //기존첨파일 삭제
-            if (b.getChangeName() != null && !b.getChangeName().equals("")) {
-                new File(session.getServletContext().getRealPath(b.getChangeName())).delete();
-            }
-
-            String changeName = Template.saveFile(reupfile, session, "/resources/uploadfile/");
-            b.setChangeName("/resources/uploadfile/" + changeName);
-            b.setOriginName(reupfile.getOriginalFilename());
-        }
-
-        int result = boardService.updateBoard(b);
-        if (result > 0) {
-            session.setAttribute("alertMsg", "게시글 수정 성공");
-            return "redirect:/detail.pb?bno=" + b.getBoardNo();
         } else {
             model.addAttribute("errorMsg", "게시글 수정 실패");
             return "common/errorPage";

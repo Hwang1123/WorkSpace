@@ -1,6 +1,5 @@
 package com.kh.boot.service;
 
-import com.kh.boot.domain.vo.Attachment;
 import com.kh.boot.domain.vo.Board;
 import com.kh.boot.domain.vo.PageInfo;
 import com.kh.boot.domain.vo.Reply;
@@ -66,28 +65,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int updateBoard(Board board) {
         return boardMapper.updateBoard(board);
-    }
-
-    @Override
-    public int selectPhotoBoardBoardCount() {
-        return boardMapper.selectPhotoBoardCount();
-    }
-
-    @Override
-    public ArrayList<Board> selectPhotoBoardList(PageInfo pi) {
-        int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-        return boardMapper.selectPhotoBoardList(rowBounds);
-    }
-
-    @Override
-    public int insertPhotoBoard(Board board) {
-        return boardMapper.insertPhotoBoard(board);
-    }
-
-    @Override
-    public ArrayList<Attachment> selectAttachmentList(int boardNo) {
-        return boardMapper.selectAttachmentList(boardNo);
     }
 
 

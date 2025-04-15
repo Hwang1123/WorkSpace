@@ -1,6 +1,5 @@
 package com.kh.boot.RESTController;
 
-import com.kh.boot.domain.vo.Attachment;
 import com.kh.boot.domain.vo.Board;
 import com.kh.boot.domain.vo.Reply;
 import com.kh.boot.service.BoardService;
@@ -31,6 +30,4 @@ public class APIBoardController {
     public ArrayList<Board> getBoardTopN(String order, int limit) {
         return boardService.getBoardTopN(order, limit);
     }
-
-
 }
