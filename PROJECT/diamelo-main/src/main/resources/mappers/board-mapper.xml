@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.diamelo.mappers.BoardMapper">
+    <resultMap id="BoardResult" type="Board">
+        <result column="POST_ID" property="postId"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="TITLE" property="title"/>
+        <result column="CONTENT" property="content"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <result column="TYPE" property="type"/>
+        <result column="BOARD_DELETED" property="boardDeleted"/>
+    </resultMap>
+
+    <resultMap id="ReplyResult" type="Reply">
+        <result column="REP_NO" property="repNo"/>
+        <result column="POST_ID" property="postId"/>
+        <result column="CONTENT" property="content"/>
+        <result column="WRITER" property="writer"/>
+        <result column="CREATED_DATE" property="createDate"/>
+        <result column="UPDATE_DATE" property="updateDate"/>
+        <result column="REPLY_DELETED" property="replyDeleted"/>
+    </resultMap>
+
+    <!-- //모든 게시판 수 -->
+    <select id="selectBoardAllCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM BOARD
+        WHERE BOARD_DELETED = 'N'
+    </select>
+
+    <!-- //모든 게시판 검색 -->
+    <select id="selectBoardAllList" resultMap="BoardResult">
+        SELECT POST_ID,
+                TYPE,
+                TITLE,
+                USER_ID,
+                TO_CHAR(CREATED_DATE, 'YYYY-MM-DD') CREATED_DATE
+        FROM BOARD
+        WHERE BOARD_DELETED = 'N'
+        ORDER BY POST_ID DESC
+    </select>
+
+    <!--  게시판 추가  -->
+    <insert id="insertBoard">
+        INSERT INTO BOARD(
+        POST_ID,
+        USER_ID,
+        TYPE,
+        TITLE,
+        CONTENT
+        ) VALUES(
+        SEQ_BNO.NEXTVAL,
+        #{userId},
+        #{type},
+        #{title},
+        #{content}
+        )
+    </insert>
+
+    <!-- 게시판 보기  -->
+    <select id="selectDetailView" resultMap="BoardResult">
+        SELECT POST_ID, TITLE, CONTENT, USER_ID, TYPE
+        FROM BOARD
+        WHERE BOARD_DELETED = 'N' AND POST_ID = #{bno}
+    </select>
+
+    <!--  댓글 추가  -->
+    <insert id="insertReply">
+        INSERT
+        INTO REPLY(
+            REP_NO,
+            POST_ID,
+            CONTENT,
+            WRITER
+        ) VALUES(
+            SEQ_RNO.NEXTVAL,
+            #{postId},
+            #{content},
+            #{writer}
+        )
+    </insert>
+
+    <!--  해당 게시판 번호의 댓글 가져오기  -->
+    <select id="selectReplyList" resultMap="ReplyResult">
+        SELECT REP_NO,
+            CONTENT,
+            WRITER,
+            TO_CHAR(CREATED_DATE, 'YYYY-MM-DD') CREATED_DATE
+        FROM REPLY
+            WHERE REPLY_DELETED = 'N'
+            AND POST_ID = #{postId}
+            ORDER BY REP_NO DESC
+    </select>
+
+    <!--  게시판 수정  -->
+    <update id="updateBoard">
+        UPDATE BOARD
+                SET POST_ID = #{postId},
+                USER_ID = #{userId},
+                TITLE = #{title},
+                CONTENT = #{content},
+                TYPE = #{type},
+                UPDATE_DATE = SYSDATE
+        WHERE POST_ID = #{postId}
+    </update>
+
+    <!--  게시판 삭제  -->
+    <update id="deleteBoard">
+        UPDATE BOARD
+            SET BOARD_DELETED = 'Y'
+        WHERE POST_ID = #{postId}
+    </update>
+
+    <!--  조건으로 게시판 검색 시 게시판 수  -->
+    <select id="selectBoardCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM BOARD
+        WHERE BOARD_DELETED = 'N'
+        <if test="type != null and type != 0">
+            AND TYPE = #{type}
+        </if>
+        <if test="title != null and title != ''">
+            AND TITLE LIKE '%' || #{title} || '%'
+        </if>
+        <if test="userId != null and userId != ''">
+            AND USER_ID LIKE '%' || #{userId} || '%'
+        </if>
+    </select>
+
+    <!--  조건으로 게시판 검색  -->
+    <select id="selectBoard" resultMap="BoardResult">
+    SELECT POST_ID,
+            TYPE,
+            TITLE,
+            USER_ID,
+            TO_CHAR(CREATED_DATE, 'YYYY-MM-DD') CREATED_DATE
+    FROM BOARD
+        WHERE BOARD_DELETED = 'N'
+            <if test="type != null and type != 0">
+                AND TYPE = #{type}
+            </if>
+            <if test="title != null and title != ''">
+                AND TITLE LIKE '%' || #{title} || '%'
+            </if>
+            <if test="userId != null and userId != ''">
+                AND USER_ID LIKE '%' || #{userId} || '%'
+            </if>
+    ORDER BY POST_ID DESC
+    </select>
+
+    <!-- 게시판 댓글 검색  -->
+    <select id="selectReply" resultMap="ReplyResult">
+        SELECT REP_NO,
+        POST_ID,
+        CONTENT,
+        WRITER,
+        CREATED_DATE
+        FROM REPLY
+        WHERE POST_ID = #{postId} AND REPLY_DELETED = 'N'
+    </select>
+
+    <!--  게시판 댓글 삭제  -->
+    <update id="deleteReply">
+        UPDATE REPLY
+        SET
+        REPLY_DELETED = 'Y',
+        UPDATE_DATE = SYSDATE
+        WHERE POST_ID = #{postId}
+        AND REP_NO = #{repNo}
+        AND WRITER = #{writer}
+    </update>
+</mapper>
