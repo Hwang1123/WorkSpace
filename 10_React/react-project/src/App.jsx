@@ -11,7 +11,7 @@ function App() {
       
     {/* <JavaScript/> */}
     {/* <Style/> */}
-    {/* <Products/> */}
+    <Products/>
     
     
     </>
