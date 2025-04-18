@@ -1,12 +1,19 @@
 import './App.css'
 import JavaScript from './component/JavaScript'
+import Products from './component/Products'
+import Style from './component/Style'
 
 function App() {
  
 
   return (
     <>
-      <JavaScript/>
+      
+    {/* <JavaScript/> */}
+    {/* <Style/> */}
+    {/* <Products/> */}
+    
+    
     </>
   )
 }
