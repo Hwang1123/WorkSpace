@@ -5,13 +5,17 @@ import './App.css'
 import UseStateTest from './components/useState/UseStateTest'
 import SignUp from './components/useState/SignUp'
 import LandingPage from './components/useState/LandingPage'
+import UseRefTest from './components/useRef/useRefTest'
+import UseRefScroll from './components/useRef/useRefScroll'
 
 function App() {
   return (
     <>
       {/* <UseStateTest /> */}
       {/* <SignUp />  */}
-      <LandingPage />
+      {/* <LandingPage /> */}
+      {/* <UseRefTest /> */}
+      <UseRefScroll />
     </>
   )
 }
