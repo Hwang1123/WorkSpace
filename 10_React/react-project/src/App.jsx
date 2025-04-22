@@ -1,7 +1,7 @@
 import './App.css'
-import JavaScript from './component/JavaScript'
-import Products from './component/Products'
-import Style from './component/Style'
+import JavaScript from './components/JavaScript'
+import Products from './components/Products'
+import Style from './components/Style'
 
 function App() {
  
