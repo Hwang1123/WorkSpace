@@ -7,6 +7,11 @@ import SignUp from './components/useState/SignUp'
 import LandingPage from './components/useState/LandingPage'
 import UseRefTest from './components/useRef/useRefTest'
 import UseRefScroll from './components/useRef/useRefScroll'
+import UseMemoTest from './components/useMemo/UseMemoTest'
+import UseCallbackTest from './components/useCallback/UseCallbackTest'
+import UseEffectTest from './components/useEffect/useEffectTest'
+import EffectView from './components/useEffect/EffectView'
+
 
 function App() {
   return (
@@ -15,7 +20,10 @@ function App() {
       {/* <SignUp />  */}
       {/* <LandingPage /> */}
       {/* <UseRefTest /> */}
-      <UseRefScroll />
+      {/* <UseRefScroll /> */}
+      {/* <UseMemoTest/> */}
+      {/* <UseCallbackTest/> */}
+      <EffectView/>
     </>
   )
 }
