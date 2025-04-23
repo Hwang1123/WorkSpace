@@ -9,8 +9,9 @@ const EffectView = () => {
         화면보기
       </button>
       {
-        isView
-      }
+        isView &&
+        <UseEffectTest />
+    }
     </div>
   )
 }
