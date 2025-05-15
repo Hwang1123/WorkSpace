@@ -1,12 +1,13 @@
+
 package com.kh.board.service;
 
 import com.kh.board.entity.Board;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 
 public interface BoardService {
+    Board findOne(Long boardId);
     List<Board> findAll();
-
-    void insertBoard(String title, String userId, String contents, MultipartFile upfile);
+    int save(Board board);
+    int delete(Long boardId);
+    Long update(Board board);
 }

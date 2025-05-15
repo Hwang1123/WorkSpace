@@ -1,12 +1,13 @@
 spring:
   application:
-    name: board
+    name: jpa
+
   datasource:
-      hikari:
-        jdbc-url: jdbc:h2:tcp://localhost/C:/workspace/11_SpringBoot/board/tdb
-        driver-class-name: org.h2.Driver
-        username: sa
-        password:
+    hikari:
+      jdbc-url: jdbc:h2:tcp://localhost/C:/workspace/11_SpringBoot/jpa/tdb
+      driver-class-name: org.h2.Driver
+      username: sa
+      password:
   h2:
     console:
       enabled: true
@@ -15,7 +16,6 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 100MB
-
   jpa:
     hibernate:
       ddl-auto: create
@@ -33,7 +33,3 @@ server:
       charset: UTF-8
       enabled: true
       force: true
-
-mybatis:
-  type-aliases-package: com.kh.board.entity
-  mapper-locations: mappers/*.xml
