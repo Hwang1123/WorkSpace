@@ -1,16 +1,23 @@
 package com.kh.jpa.entity;
 
 import com.kh.jpa.enums.CommonEnums;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,13 +39,10 @@ public class Board {
     @Column(name = "BOARD_TITLE", length = 30, nullable = false)
     private String boardTitle;
 
-    @Column(name = "BOARD_WRITER", length = 30, nullable = false)
-    private String boardWriter;
-
     //@Lob : 대용량 데이터 매핑
     @Column(name = "BOARD_CONTENT", nullable = false)
     @Lob
-    private String noticeContent;
+    private String boardContent;
 
     @Column(name = "ORIGIN_NAME", length = 100)
     private String originName;
@@ -54,6 +58,47 @@ public class Board {
     private CommonEnums.Status status;
 
     private Integer count;
+
+    //Board : Member (N : 1)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BOARD_WRITER")
+    private Member member;
+
+    public void changeMember(Member member) {
+        this.member = member;
+        if(!member.getBoards().contains(this)) {
+            member.getBoards().add(this);
+        }
+    }
+
+    //Reply : Board (N : 1)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Reply> replies = new ArrayList<>();
+
+    //BoardTag : Board (N : 1)
+    //orphanRemoval = true N : 1 또는 1 : N 연관관계에서  자식 생명주기를 부모가 완전히 통제하겠다.
+    // 부모 엔티티에서 자식과의 관계가 제거되면, 자식도 자동으로 삭제
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<BoardTag> boardTags = new ArrayList<>();
+
+    public void changeFile(String originName, String changeName) {
+        this.originName = originName;
+        this.changeName = changeName;
+    }
+
+    public void changeContent(String boardContent) {
+        if(boardContent != null && !boardContent.isEmpty()) {
+            this.boardContent = boardContent;
+        }
+    }
+
+    public void changeTitle(String boardTitle) {
+        if(boardTitle != null && !boardTitle.isEmpty()) {
+            this.boardTitle = boardTitle;
+        }
+    }
 
     @PrePersist
     protected void onCreate() {

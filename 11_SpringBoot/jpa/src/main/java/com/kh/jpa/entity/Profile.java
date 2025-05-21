@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,4 +29,7 @@ public class Profile {
 
     @Column(length = 300)
     private String intro;
+
+    @OneToOne(mappedBy = "profile")
+    private Member member;
 }

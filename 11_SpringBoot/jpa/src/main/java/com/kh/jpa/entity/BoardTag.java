@@ -21,5 +21,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class BoardTag {
+    @Id
+    @Column(name = "BOARD_TAG_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long boardTagId;
 
+    //게시글 : 중계테이블 (1 :  N)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BOARD_NO", nullable = false)
+    private Board board;
+
+    public void changeBoard(Board board) {
+        this.board = board;
+        board.getBoardTags().add(this);
+    }
+
+    //태그 : 중계테이블 (1 :  N)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TAG_ID", nullable = false)
+    private Tag tag;
 }

@@ -1,3 +1,4 @@
+
 package com.kh.jpa.entity;
 
 
@@ -22,4 +23,4 @@ public class Tag {
 
     @Column(name = "TAG_NAME", length = 30, nullable = false, unique = true)
     private String tagName;
-}
+} 
