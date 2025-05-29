@@ -28,7 +28,7 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
     private final TagRepository tagRepository;
-    private final String UPLOAD_PATH = "C:\\dev_tool\\";
+    private final String UPLOAD_PATH = "C:\\dev_tool\\"; // "\\"대신 File.separator 사용 가능
 
     @Override
     public Page<BoardDto.Response> getBoardList(Pageable pageable) {
