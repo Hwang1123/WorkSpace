@@ -27,9 +27,6 @@ public class KakaoService {
         params.add("redirect_uri", redirectUri);
         params.add("client_id", clientId);
 
-        System.out.println("Kakao Authorization Code: " + code);
-        System.out.println("Kakao Authorization redirectUri: " + redirectUri);
-
         ResponseEntity<AccessTokenDto> response = restClient.post()
                 .uri("https://kauth.kakao.com/oauth/token")
                 .header("Content-Type", "application/x-www-form-urlencoded")
